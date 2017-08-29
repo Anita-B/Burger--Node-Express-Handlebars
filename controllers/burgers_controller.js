@@ -19,7 +19,7 @@ router.get("/", function(req, res) {
 router.post("/", function(req, res) {
 
   //display field
-  //document.getElementById("added_burger").className += " display_yes";
+  document.getElementById("added_burger").className += " display_yes";
 
   burger.insertOne([
     "burger_name", "devoured"
