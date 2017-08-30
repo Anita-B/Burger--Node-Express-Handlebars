@@ -11,46 +11,52 @@ Handlebars.registerHelper('ifCond', function(v1, v2 options) {
 <h1>Eat-A-Burger!</h1>
 
 <div id="display_burger">
-  <div id="added_burger" class="display_yes">
-    <ol>
-      {{#each burgers}}
-        {{#unless this.devoured}}
 
-          <li>
-            <div id="name_of_burger">
-              {{this.burger_name}}
-            </div>
-            <div id="devour_button">
-              <form action="/{{this.id}}?_method=PUT" method="POST">
-                <input type="hidden" name="devoured" value="1">
-                <button type="submit">Devour It!</button>
-              </form>
-            </div>
-          </li>
+  {{#if noneaten.length}}
+    <div id="added_burger">
+      <ol>
+        {{#each noneaten}}
+          {{#unless this.devoured}}
 
-        {{/unless}}
-      {{/each}}
-    </ol>
-  </div>
+            <li>
+              <div id="name_of_burger">
+                {{this.burger_name}}
+              </div>
+              <div id="devour_button">
+                <form action="/{{this.id}}?_method=PUT" method="POST">
+                  <input type="hidden" name="devoured" value="1">
+                  <button type="submit">Devour It!</button>
+                </form>
+              </div>
+            </li>
 
-  <div id="updated_burger" class="display_yes">
-    <ol>
-      {{#each burgers}}
-        {{#if this.devoured}}
-        {{#unless this.seed}}
-          <li>
-            {{this.burger_name}}
+          {{/unless}}
+        {{/each}}
+      </ol>
+    </div>
+  {{/if}}
 
-            <!--form action="/{{this.id}}?_method=PUT" method="POST">
-              <input type="hidden" name="devoured" value="0">
-              <button type="submit">Devour It!</button>
-            </form-->
-          </li>
-        {{/unless}}
-        {{/if}}
-      {{/each}}
-    </ol>
-  </div>
+  {{#if eaten.length}}
+    <div id="updated_burger">
+        <ol>
+          {{#each eaten}}
+            {{#if this.devoured}}
+            {{#unless this.seed}}
+              <li>
+                {{this.burger_name}}
+
+                <!--form action="/{{this.id}}?_method=PUT" method="POST">
+                  <input type="hidden" name="devoured" value="0">
+                  <button type="submit">Devour It!</button>
+                </form-->
+              </li>
+            {{/unless}}
+            {{/if}}
+          {{/each}}
+        </ol>
+      </div>
+  {{/if}}
+  
 </div>
 
 <form class="create-update-form" id="burger_form" action="/" method="POST">

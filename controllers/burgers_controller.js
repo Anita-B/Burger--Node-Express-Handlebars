@@ -9,7 +9,20 @@ var burger = require("../models/burger.js");
 router.get("/", function(req, res) {
   burger.selectAll(function(data) {
     var hbsObject = {
-      burgers: data
+      //burgers: data
+      //make 2 arrays and filter through array filter
+      // eaten: array of devoured burgers
+      // noneaten: array of nondevoured burgers
+      eaten: data.filter(function(burger){
+        if(!burger.seed)
+        {
+          return burger.devoured;
+        }
+
+      }),
+      noneaten: data.filter(function(burger){
+        return !burger.devoured;
+      })
     };
     console.log(hbsObject);
     res.render("index", hbsObject);
@@ -19,7 +32,7 @@ router.get("/", function(req, res) {
 router.post("/", function(req, res) {
 
   //display field
-  document.getElementById("added_burger").className += " display_yes";
+  //document.getElementById("added_burger").className += " display_yes";
 
   burger.insertOne([
     "burger_name", "devoured"
